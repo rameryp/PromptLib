@@ -5,12 +5,12 @@ import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, setPersistence, 
 // Your web app's Firebase configuration
 // REPLACE THESE VALUES WITH YOUR OWN FROM THE FIREBASE CONSOLE
 const firebaseConfig = {
-    apiKey: "AIzaSyAJqhfoqX0_NAkYg0QITO_KqnXohY_mPIM",
-    authDomain: "prompt-library-95494.firebaseapp.com",
-    projectId: "prompt-library-95494",
-    storageBucket: "prompt-library-95494.firebasestorage.app",
-    messagingSenderId: "410503725404",
-    appId: "1:410503725404:web:55f07fe5a7a06cae69c199"
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 // Initialize Firebase

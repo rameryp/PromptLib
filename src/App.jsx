@@ -38,21 +38,22 @@ function NavLink({ to, children, icon: Icon }) {
 function MainApp() {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [prompts, setPrompts] = useState([])
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser)
+      if (!currentUser) setPrompts([])
       setLoading(false)
     })
     return () => unsubscribe()
   }, [])
 
-  const [prompts, setPrompts] = useState([])
+
 
   // Subscribe to Firestore updates
   useEffect(() => {
     if (!user) {
-      setPrompts([])
       return
     }
 
@@ -161,7 +162,7 @@ function MainApp() {
       if (formData.id) {
         // Update existing in Firestore
         const promptRef = doc(db, 'prompts', formData.id)
-        const { id, ...updateData } = formData // Remove ID from data payload
+        const { id: _id, ...updateData } = formData // Remove ID from data payload
         await updateDoc(promptRef, updateData)
 
         // Also update selected prompt if currently viewing it
@@ -171,7 +172,7 @@ function MainApp() {
       } else {
         // Create new in Firestore
         // Remove 'id' from formData before sending to create
-        const { id, ...newPromptData } = formData
+        const { id: _id, ...newPromptData } = formData
         await addDoc(collection(db, 'prompts'), {
           ...newPromptData,
           createdAt: new Date().toISOString(),
